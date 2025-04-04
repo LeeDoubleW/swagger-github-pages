@@ -113,24 +113,11 @@ paths:
       description: 유저의 잔액을 충전합니다.
       operationId: getBalance_1
       parameters:
-      - name: userId
-        in: path
-        description: 유저ID
-        required: true
-        schema:
-          type: integer
-          format: int64
-        example: 1
-      - name: arg1
+      - name: arg0
         in: query
-        description: 충전 금액 (JSON 형태)
         required: true
         schema:
-          type: object
-          additionalProperties:
-            type: object
-        example:
-          amount: 5000
+          "$ref": "#/components/schemas/BalanceRequest"
       responses:
         '200':
           description: OK
@@ -148,14 +135,11 @@ paths:
       description: 상품 ID를 기반으로 상세 정보를 조회합니다.
       operationId: getProduct
       parameters:
-      - name: productId
-        in: path
-        description: 상품 ID
+      - name: arg0
+        in: query
         required: true
         schema:
-          type: integer
-          format: int64
-        example: 1
+          "$ref": "#/components/schemas/ProductRequest"
       responses:
         '200':
           description: OK
@@ -313,10 +297,35 @@ components:
         quantity:
           type: integer
           format: int32
+    BalanceRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        amount:
+          type: integer
+          format: int64
+    ProductRequest:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        productNm:
+          type: string
+        categoryId:
+          type: integer
+          format: int64
+        price:
+          type: integer
+          format: int64
     CouponRequest:
       type: object
       properties:
         userId:
-          type: string
+          type: integer
+          format: int64
         couponId:
-          type: string
+          type: integer
+          format: int64
